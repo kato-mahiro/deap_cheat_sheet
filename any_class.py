@@ -7,18 +7,19 @@ from deap import creator
 from deap import tools
 
 class myclass:
-    def __init__(self):
+    def __init__(self,hoge):
         self.gene1 = numpy.random.rand(2,2)
         self.gene2 = "gene"
         self.gene3 = random.choice([0,1])
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
+creator.create("Individual", myclass, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-toolbox.register("attr_bool", random.randint, 0, 1)
-toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_bool, n=100)
+#toolbox.register("attr_bool", random.randint, 0, 1)
+toolbox.register("attr_myclass", myclass,None)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_myclass, n=1)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evalOneMax(individual):
@@ -47,6 +48,7 @@ def main():
     random.seed(64)
     
     pop = toolbox.population(n=300)
+    import pdb; pdb.set_trace()
     
     hof = tools.HallOfFame(1, similar=numpy.array_equal)
     
