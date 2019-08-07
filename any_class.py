@@ -6,6 +6,12 @@ from deap import base
 from deap import creator
 from deap import tools
 
+class myclass:
+    def __init__(self):
+        self.gene1 = numpy.random.rand(2,2)
+        self.gene2 = "gene"
+        self.gene3 = random.choice([0,1])
+
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
