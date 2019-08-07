@@ -12,12 +12,6 @@ class myclass:
         self.gene2 = "gene"
         self.gene3 = random.choice([0,1])
 
-def create_ind_uniform():
-    #ind = []
-    #ind.append(myclass())
-    #return ind
-    return myclass()
-
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
@@ -26,7 +20,7 @@ toolbox = base.Toolbox()
 #toolbox.register("attr_bool", random.randint, 0, 1)
 #toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_myclass, n=1)
 
-toolbox.register("create_ind", create_ind_uniform, )
+toolbox.register("create_ind", myclass, )
 toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.create_ind,n=2)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
