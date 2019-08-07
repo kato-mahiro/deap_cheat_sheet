@@ -13,15 +13,12 @@ class myclass:
         self.gene3 = random.choice([0,1])
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
+creator.create("Individual", list, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
-#toolbox.register("attr_bool", random.randint, 0, 1)
-#toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_myclass, n=1)
-
 toolbox.register("create_ind", myclass, )
-toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.create_ind,n=2)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.create_ind,n=1)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evalOneMax(individual):
