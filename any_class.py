@@ -13,7 +13,7 @@ class myclass:
         self.gene3 = random.choice([0,1])
 
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-creator.create("Individual", list, fitness=creator.FitnessMax)
+creator.create("Individual", numpy.ndarray, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
 
@@ -22,25 +22,33 @@ toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.cre
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evalOneMax(individual):
-    return sum(individual),
+    #return sum(individual),
+    print(float(numpy.sum(individual[0].gene1)))
+    return float(numpy.sum(individual[0].gene1)),
 
 def cxTwoPointCopy(ind1, ind2):
-    size = len(ind1)
-    cxpoint1 = random.randint(1, size)
-    cxpoint2 = random.randint(1, size - 1)
-    if cxpoint2 >= cxpoint1:
-        cxpoint2 += 1
-    else: # Swap the two cx points
-        cxpoint1, cxpoint2 = cxpoint2, cxpoint1
-
-    ind1[cxpoint1:cxpoint2], ind2[cxpoint1:cxpoint2] = ind2[cxpoint1:cxpoint2].copy(), ind1[cxpoint1:cxpoint2].copy()
+    #size = len(ind1)
+    #cxpoint1 = random.randint(1, size)
+    #cxpoint2 = random.randint(1, size - 1)
+    #if cxpoint2 >= cxpoint1:
+        #cxpoint2 += 1
+    #else: # Swap the two cx points
+        #cxpoint1, cxpoint2 = cxpoint2, cxpoint1
+#
+    ##ind1[cxpoint1:cxpoint2], ind2[cxpoint1:cxpoint2] = ind2[cxpoint1:cxpoint2].copy(), ind1[cxpoint1:cxpoint2].copy()
         
     return ind1, ind2
     
+def myMutation(individual, indpb):
+    for i in range(len(individual)):
+        if random.random() < indpb:
+            individual[i] = type(individual[i])(not individual[i])
+            individual[i][0].gene1 = numpy.random.rand(2,2)
+    return individual,
     
 toolbox.register("evaluate", evalOneMax)
 toolbox.register("mate", cxTwoPointCopy)
-toolbox.register("mutate", tools.mutFlipBit, indpb=0.05)
+toolbox.register("mutate", myMutation, indpb=0.1)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 def main():
