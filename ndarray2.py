@@ -43,7 +43,7 @@ def cxTwoPointCopy(ind1, ind2):
 
 def mutUniformDbl(individual, min_ind, max_ind, indpb):
     size = len(individual)
-    for i, min, max  in zip(xrange(size), min_ind, max_ind):
+    for i, min, max  in zip(range(size), min_ind, max_ind):
         if random.random() < indpb:
             individual[i] = random.uniform(min, max)
     return individual,
