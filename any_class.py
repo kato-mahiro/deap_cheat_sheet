@@ -42,7 +42,9 @@ def cxTwoPointCopy(ind1, ind2):
 def myMutation(individual, indpb):
     for i in range(len(individual)):
         if random.random() < indpb:
-            individual[i] = type(individual[i])(not individual[i])
+            ##individual[i] = type(individual[i])(not individual[i])
+            print(individual)
+            print(individual[0].gene1)
             individual[i][0].gene1 = numpy.random.rand(2,2)
     return individual,
     
